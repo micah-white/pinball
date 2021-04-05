@@ -5,6 +5,8 @@ https://gist.github.com/karpathy/a4166c7fe253700972fcbc77e4ea32c5 """
 import numpy as np
 import _pickle as pickle
 import gym
+import time
+import sys
 
 from gym import wrappers
 
@@ -20,7 +22,7 @@ resume = False # resume training from previous checkpoint (from save.p  file)?
 render = True # render video output?
 
 # model initialization
-D = 75 * 80 # input dimensionality: 75x80 grid
+D = 188*160 # input dimensionality: 75x80 grid
 if resume:
   model = pickle.load(open('save-pinball.p', 'rb'))
 else:
@@ -35,13 +37,14 @@ def sigmoid(x):
   return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
 
 def prepro(I):
-  """ prepro 210x160x3 uint8 frame into 6000 (75x80) 1D float vector """
-  I = I[35:185] # crop - remove 35px from start & 25px from end of image in x, to reduce redundant parts of image (i.e. after ball passes paddle)
-  I = I[::2,::2,0] # downsample by factor of 2.
-  I[I == 144] = 0 # erase background (background type 1)
-  I[I == 109] = 0 # erase background (background type 2)
-  I[I != 0] = 1 # everything else (paddles, ball) just set to 1. this makes the image grayscale effectively
-  return I.astype(np.float).ravel() # ravel flattens an array and collapses it into a column vector
+  """ prepro 250x160x3 uint8 frame into 30,080 (188x160) 1D float vector """
+  print(I.size)
+  I = I[29:217] # crop - remove 29px from start & 33px from end of image in x, to reduce redundant parts of image (i.e. after ball passes paddle)
+  #I = I[::2,::2,0] # downsample by factor of 2.
+  print(I.size)
+  I = I[:, :, 0]
+  #np.set_printoptions(threshold=sys.maxsize)
+  return I.astype(float).ravel() # ravel flattens an array and collapses it into a column vector
 
 def discount_rewards(r):
   """ take 1D float array of rewards and compute discounted reward """
@@ -82,6 +85,7 @@ xs,hs,dlogps,drs = [],[],[],[]
 running_reward = None
 reward_sum = 0
 episode_number = 0
+
 while True:
   if render: env.render()
 
@@ -97,8 +101,10 @@ while True:
   # The following step is randomly choosing a number which is the basis of making an action decision
   # If the random number is less than the probability of UP output from our neural network given the image
   # then go down.  The randomness introduces 'exploration' of the Agent
-  action = 2 if np.random.uniform() < aprob else 3 # roll the dice! 2 is UP, 3 is DOWN, 0 is stay the same
-
+  #action = 2 if np.random.uniform() < aprob else 3 # roll the dice! 2 is UP, 3 is DOWN, 0 is stay the same
+  #2 is both paddles up, 3 is right paddle up, 4 is left paddle up, 5 is pull bumper back, 6 is also both paddles up, 
+  action = env.action_space.sample()
+  
   # record various intermediates (needed later for backprop).
   # This code would have otherwise been handled by a NN library
   xs.append(x) # observation

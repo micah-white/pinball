@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\docs",
+    "\\examples",
+    "\\examples\\agents",
+    "\\gym",
+    "\\gym\\envs",
+    "\\gym\\envs\\atari"
+  ],
+  "SelectedNode": "\\pinball-from-pixels.py",
+  "PreviewInSolutionExplorer": false
+}
