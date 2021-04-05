@@ -22,7 +22,7 @@ resume = False # resume training from previous checkpoint (from save.p  file)?
 render = True # render video output?
 
 # model initialization
-D = 188*160 # input dimensionality: 75x80 grid
+D = 188*160 # input dimensionality: 188x160 grid
 if resume:
   model = pickle.load(open('save-pinball.p', 'rb'))
 else:
@@ -42,7 +42,7 @@ def prepro(I):
   I = I[29:217] # crop - remove 29px from start & 33px from end of image in x, to reduce redundant parts of image (i.e. after ball passes paddle)
   #I = I[::2,::2,0] # downsample by factor of 2.
   print(I.size)
-  I = I[:, :, 0]
+  I = I[:, :, 0] #only need red value to differentiate between colors
   #np.set_printoptions(threshold=sys.maxsize)
   return I.astype(float).ravel() # ravel flattens an array and collapses it into a column vector
 
