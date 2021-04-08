@@ -75,6 +75,7 @@ def policy_backward(eph, epx, epdlogp):
   return {'W1':dW1, 'W2':dW2}
 
 env = gym.make("Pong-v0")
+print(env.unwrapped.get_action_meanings())
 #env = wrappers.Monitor(env, 'tmp/pong-base', force=True) # record the game as as an mp4 file
 observation = env.reset()
 prev_x = None # used in computing the difference frame
