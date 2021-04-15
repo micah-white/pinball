@@ -72,14 +72,33 @@ def policy_backward(eph, epx, epdlogp):
   """ Manual implementation of a backward prop"""
   """ It takes an array of the hidden states that corresponds to all the images that were
   fed to the NN (for the entire episode, so a bunch of games) and their corresponding logp"""
-  dW2 = np.dot(eph.T, epdlogp).ravel()
-  dh = np.outer(epdlogp, model['W2'])
-  dh[eph <= 0] = 0 # backpro prelu
-  dW1 = np.dot(dh.T, epx)
+  dW2, dh= [],np.empty([A,eph.shape[0], eph.shape[1]])
+  #time.sleep(100)
+  for i in range(0,A):
+    dW2.append(np.dot(eph.T, epdlogp[:, i]).ravel())
+    #dh.append(np.outer(epdlogp[:,i], model['W2']))
+    #print("dh[i]: ")
+    #print(dh[i].shape) #num actions x H
+    #print("eplogd[:,i]: ")
+    #print(epdlogp.shape) # num actions x A
+    dh[i] = np.outer(epdlogp[:,i], model['W2'][i])
+  print("we here again xx2") 
+  np.set_printoptions(threshold=10000)
+  for i in range(0,A):
+    dh[i, eph <= 0] = 0 # backpro prelu
+  print("we here")
+  print(dh.T.shape)
+  print(epx.shape)
+  temp = []
+  for i in range(0,A):
+    temp.append(np.dot(dh[i].T, epx))
+  dW1 = temp[0]
+  for i in range(1,A):
+    np.add(dW1, temp[i])
+  np.divide(dW1, A)
   return {'W1':dW1, 'W2':dW2}
 
 env = gym.make("VideoPinball-v0")
-print(env.unwrapped.get_action_meanings())
 #env = wrappers.Monitor(env, 'tmp/pong-base', force=True) # record the game as as an mp4 file
 observation = env.reset()
 prev_x = None # used in computing the difference frame
@@ -147,7 +166,7 @@ while True:
 
     # perform rmsprop parameter update every batch_size episodes
     if episode_number % batch_size == 0:
-      for k,v in model.items():
+      for k,v in model.items():     
         g = grad_buffer[k] # gradient
         rmsprop_cache[k] = decay_rate * rmsprop_cache[k] + (1 - decay_rate) * g**2
         model[k] += learning_rate * g / (np.sqrt(rmsprop_cache[k]) + 1e-5)
