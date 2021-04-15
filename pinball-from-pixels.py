@@ -82,13 +82,13 @@ def policy_backward(eph, epx, epdlogp):
     #print("eplogd[:,i]: ")
     #print(epdlogp.shape) # num actions x A
     dh[i] = np.outer(epdlogp[:,i], model['W2'][i])
-  print("we here again xx2") 
+  #print("we here again xx2") 
   np.set_printoptions(threshold=10000)
   for i in range(0,A):
     dh[i, eph <= 0] = 0 # backpro prelu
-  print("we here")
-  print(dh.T.shape)
-  print(epx.shape)
+  #print("we here")
+  #print(dh.T.shape)
+  #print(epx.shape)
   temp = []
   for i in range(0,A):
     temp.append(np.dot(dh[i].T, epx))
