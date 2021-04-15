@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
     "",
+    "\\docs",
+    "\\examples",
     "\\examples\\agents",
+    "\\gym",
     "\\gym\\envs",
     "\\gym\\envs\\atari"
   ],
