@@ -173,7 +173,8 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--env', type=str, default='MontezumaRevengeNoFrameskip-v4', help='Define Environment')
     args = parser.parse_args()
-    env = gym.make(args.env)
+    #env = gym.make(args.env)
+    env = gym.make('Pong-v0')
     play(env, zoom=4, fps=60)
 
 
