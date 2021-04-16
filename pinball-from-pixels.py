@@ -119,13 +119,17 @@ while True:
 
   # forward the policy network and sample an action from the returned probability
   aprob, h = policy_forward(x)
+  print(aprob)
+  #time.sleep(0.1)
   # The following step is randomly choosing a number which is the basis of making an action decision
   # If the random number is less than the probability of UP output from our neural network given the image
   # then go down.  The randomness introduces 'exploration' of the Agent
   #action = 2 if np.random.uniform() < aprob else 3 # roll the dice! 2 is UP, 3 is DOWN, 0 is stay the same
   #2 is both paddles up, 3 is right paddle up, 4 is left paddle up, 5 is pull bumper back, 6 fire bumper, except maybe 1 is?
   #action = random.choices(range(0,8), weights = aprob)
-  action = random.choices(range(0,A), aprob)[0]
+  temp = random.choices(range(0,A), aprob)
+  print(temp)
+  action = temp[0]
   
   # record various intermediates (needed later for backprop).
   # This code would have otherwise been handled by a NN library
