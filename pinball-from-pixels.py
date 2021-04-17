@@ -36,6 +36,7 @@ grad_buffer = { k : np.zeros_like(v) for k,v in model.items() } # update buffers
 rmsprop_cache = { k : np.zeros_like(v) for k,v in model.items() } # rmsprop memory
 
 def sigmoid(x):
+  print(x)
   return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
 
 def prepro(I):
@@ -119,7 +120,7 @@ while True:
 
   # forward the policy network and sample an action from the returned probability
   aprob, h = policy_forward(x)
-  print(aprob)
+  #print(aprob)
   #time.sleep(0.1)
   # The following step is randomly choosing a number which is the basis of making an action decision
   # If the random number is less than the probability of UP output from our neural network given the image
@@ -128,7 +129,7 @@ while True:
   #2 is both paddles up, 3 is right paddle up, 4 is left paddle up, 5 is pull bumper back, 6 fire bumper, except maybe 1 is?
   #action = random.choices(range(0,8), weights = aprob)
   temp = random.choices(range(0,A), aprob)
-  print(temp)
+  #print(temp)
   action = temp[0]
   
   # record various intermediates (needed later for backprop).
@@ -150,21 +151,26 @@ while True:
 
   if done: # an episode finished
     episode_number += 1
-
     # stack together all inputs, hidden states, action gradients, and rewards for this episode
     epx = np.vstack(xs)
     eph = np.vstack(hs)
     epdlogp = np.vstack(dlogps)
+    print(epdlogp.shape)
     epr = np.vstack(drs)
+    epr /= 1000
     xs,hs,dlogps,drs = [],[],[],[] # reset array memory
 
     # compute the discounted reward backwards through time
     discounted_epr = discount_rewards(epr)
+    
     # standardize the rewards to be unit normal (helps control the gradient estimator variance)
     discounted_epr -= np.mean(discounted_epr)
     discounted_epr /= np.std(discounted_epr)
-
-    epdlogp *= discounted_epr # modulate the gradient with advantage (Policy Grad magic happens right here.)
+    print(discounted_epr.shape)
+    #print(epdlogp)
+    epdlogp *= discounted_epr # modulate the gradient with advantage (Policy Grad magic happens right here).
+    #print(epdlogp)
+    #time.sleep(5)
     grad = policy_backward(eph, epx, epdlogp)
     for k in model: grad_buffer[k] += grad[k] # accumulate grad over batch
 
