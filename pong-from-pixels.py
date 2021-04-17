@@ -32,7 +32,7 @@ grad_buffer = { k : np.zeros_like(v) for k,v in model.items() } # update buffers
 rmsprop_cache = { k : np.zeros_like(v) for k,v in model.items() } # rmsprop memory
 
 def sigmoid(x):
-  print(x)
+  #print(x)
   return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
 
 def prepro(I):
@@ -72,10 +72,10 @@ def policy_backward(eph, epx, epdlogp):
   dW2 = np.dot(eph.T, epdlogp).ravel()
   dh = np.outer(epdlogp, model['W2'])
   dh[eph <= 0] = 0 # backpro prelu
-  print(dh.T.shape)
-  print(epx.shape)
+  #print(dh.T.shape)
+  #print(epx.shape)
   dW1 = np.dot(dh.T, epx)
-  print(dW1.shape)
+  #print(dW1.shape)
   return {'W1':dW1, 'W2':dW2}
 
 env = gym.make("Pong-v0")
@@ -136,6 +136,8 @@ while True:
 
     epdlogp *= discounted_epr # modulate the gradient with advantage (Policy Grad magic happens right here.)
     grad = policy_backward(eph, epx, epdlogp)
+    print(grad_buffer)
+    print(grad)
     for k in model: grad_buffer[k] += grad[k] # accumulate grad over batch
 
     # perform rmsprop parameter update every batch_size episodes

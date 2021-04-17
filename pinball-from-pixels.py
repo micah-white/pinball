@@ -38,15 +38,15 @@ rmsprop_cache = { k : np.zeros_like(v) for k,v in model.items() } # rmsprop memo
 
 def sigmoid(x):
   #print(x)
-  with np.errstate(over='raise'):
-    try:
-      #print(x)
-      np.exp(-x)
-    except OverflowError as err:
-      print(x)
-      #temp = 1.0 / (1.0 + np.exp(-x))
-      #print(temp)
-      time.sleep(10)
+  #with np.errstate(over='raise'):
+  try:
+    #print(x)
+    np.exp(-x)
+  except OverflowError as err:
+    print(x)
+    #temp = 1.0 / (1.0 + np.exp(-x))
+    #print(temp)
+    #time.sleep(10)
   return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
 
 def prepro(I):
@@ -166,7 +166,6 @@ while True:
   drs.append(reward) # record reward (has to be done after we call step() to get reward for previous action)
 
   if done: # an episode finished
-    
     episode_number += 1
     print(actionDistribution)
     actionDistribution = [0,0,0,0,0,0]
@@ -194,11 +193,13 @@ while True:
     #print(epdlogp)
     #time.sleep(5)
     grad = policy_backward(eph, epx, epdlogp)
+    print(grad_buffer)
+    print(grad)
     for k in model: grad_buffer[k] += grad[k] # accumulate grad over batch
-
+    
     # perform rmsprop parameter update every batch_size episodes
     if episode_number % batch_size == 0:
-      for k,v in model.items():     
+      for k,v in model.items():
         g = grad_buffer[k] # gradient
         rmsprop_cache[k] = decay_rate * rmsprop_cache[k] + (1 - decay_rate) * g**2
         model[k] += learning_rate * g / (np.sqrt(rmsprop_cache[k]) + 1e-5)
