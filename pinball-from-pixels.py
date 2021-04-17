@@ -36,8 +36,16 @@ grad_buffer = { k : np.zeros_like(v) for k,v in model.items() } # update buffers
 rmsprop_cache = { k : np.zeros_like(v) for k,v in model.items() } # rmsprop memory
 
 def sigmoid(x):
-  print(x)
-  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+  #print(x)
+  with np.errstate(over='raise'):
+    try:
+      temp = 1.0 / (1.0 + np.exp(-x))
+    except OverflowError as err:
+      print(x)
+      #temp = 1.0 / (1.0 + np.exp(-x))
+      print(temp)
+      time.sleep(10)
+  return temp # sigmoid "squashing" function to interval [0,1]
 
 def prepro(I):
   """ prepro 250x160x3 uint8 frame into 7,520 (94x80) 1D float vector """
@@ -155,7 +163,6 @@ while True:
     epx = np.vstack(xs)
     eph = np.vstack(hs)
     epdlogp = np.vstack(dlogps)
-    print(epdlogp.shape)
     epr = np.vstack(drs)
     epr /= 1000
     xs,hs,dlogps,drs = [],[],[],[] # reset array memory
@@ -166,7 +173,6 @@ while True:
     # standardize the rewards to be unit normal (helps control the gradient estimator variance)
     discounted_epr -= np.mean(discounted_epr)
     discounted_epr /= np.std(discounted_epr)
-    print(discounted_epr.shape)
     #print(epdlogp)
     epdlogp *= discounted_epr # modulate the gradient with advantage (Policy Grad magic happens right here).
     #print(epdlogp)

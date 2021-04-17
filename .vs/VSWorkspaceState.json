@@ -1,9 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\gym",
-    "\\gym\\utils",
-    "\\scripts"
+    ""
   ],
+  "SelectedNode": "\\pinball-from-pixels.py",
   "PreviewInSolutionExplorer": false
 }
