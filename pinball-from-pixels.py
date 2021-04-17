@@ -24,6 +24,7 @@ resume = False # resume training from previous checkpoint (from save.p  file)?
 render = True # render video output?
 
 # model initialization
+xvalues = [[],[],[],[],[],[]]
 D = 94*80 # input dimensionality: 94x80 grid
 if resume:
   model = pickle.load(open('save-pinball.p', 'rb'))
@@ -39,13 +40,14 @@ def sigmoid(x):
   #print(x)
   with np.errstate(over='raise'):
     try:
-      temp = 1.0 / (1.0 + np.exp(-x))
+      #print(x)
+      np.exp(-x)
     except OverflowError as err:
       print(x)
       #temp = 1.0 / (1.0 + np.exp(-x))
-      print(temp)
+      #print(temp)
       time.sleep(10)
-  return temp # sigmoid "squashing" function to interval [0,1]
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
 
 def prepro(I):
   """ prepro 250x160x3 uint8 frame into 7,520 (94x80) 1D float vector """
@@ -73,8 +75,12 @@ def policy_forward(x):
   h[h<0] = 0 # ReLU introduces non-linearity
   p = []
   for i in range(0, A):
-    p.append(sigmoid(np.dot(model['W2'][i], h))) # This is a logits function and outputs a decimal.   (1 x H) . (H x 1) = 1 (scalar)
-  return p, h # return probability of taking action 2 (UP), and hidden state
+    #print(i)
+    temp = np.dot(model['W2'][i], h)
+    #print(temp)
+    xvalues[i].append(temp)
+    p.append(sigmoid(temp)) # This is a logits function and outputs a decimal.   (1 x H) . (H x 1) = 1 (scalar)
+  return p, h # return relative probability distribution of actions and hidden state
 
 def policy_backward(eph, epx, epdlogp):
   """ backward pass. (eph is array of intermediate hidden states) """
@@ -115,10 +121,10 @@ xs,hs,dlogps,drs = [],[],[],[]
 running_reward = None
 reward_sum = 0
 episode_number = 0
-
+actionDistribution = [0,0,0,0,0,0]
 while True:
   if render: env.render()
-
+  
   # preprocess the observation, set input to network to be difference image
   cur_x = prepro(observation)
   # we take the difference in the pixel input, since this is more likely to account for interesting information
@@ -139,6 +145,7 @@ while True:
   temp = random.choices(range(0,A), aprob)
   #print(temp)
   action = temp[0]
+  actionDistribution[action] += 1
   
   # record various intermediates (needed later for backprop).
   # This code would have otherwise been handled by a NN library
@@ -154,17 +161,26 @@ while True:
   
   # step the environment and get new measurements
   observation, reward, done, info = env.step(action)
+  reward /= 10000
   reward_sum += reward
   drs.append(reward) # record reward (has to be done after we call step() to get reward for previous action)
 
   if done: # an episode finished
+    
     episode_number += 1
+    print(actionDistribution)
+    actionDistribution = [0,0,0,0,0,0]
+    avgs = []
+    for i in range(0,A):
+      avgs.append(sum(xvalues[i]) / len(xvalues[i]))
+    print(avgs)
+    xvalues = [[],[],[],[],[],[]]
+    time.sleep(40)
     # stack together all inputs, hidden states, action gradients, and rewards for this episode
     epx = np.vstack(xs)
     eph = np.vstack(hs)
     epdlogp = np.vstack(dlogps)
     epr = np.vstack(drs)
-    epr /= 1000
     xs,hs,dlogps,drs = [],[],[],[] # reset array memory
 
     # compute the discounted reward backwards through time
