@@ -129,8 +129,8 @@ dmypy.json
 .pyre/
 
 #me
-./.vs/*
-./bin/*
-./docs/*
-./gym/*
-./examples/*
+.vs/*
+bin/*
+docs/*
+gym/*
+examples/*
