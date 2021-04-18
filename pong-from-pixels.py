@@ -32,7 +32,6 @@ grad_buffer = { k : np.zeros_like(v) for k,v in model.items() } # update buffers
 rmsprop_cache = { k : np.zeros_like(v) for k,v in model.items() } # rmsprop memory
 
 def sigmoid(x):
-  #print(x)
   return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
 
 def prepro(I):
@@ -42,7 +41,7 @@ def prepro(I):
   I[I == 144] = 0 # erase background (background type 1)
   I[I == 109] = 0 # erase background (background type 2)
   I[I != 0] = 1 # everything else (paddles, ball) just set to 1. this makes the image grayscale effectively
-  return I.astype(np.float).ravel() # ravel flattens an array and collapses it into a column vector
+  return I.astype(float).ravel() # ravel flattens an array and collapses it into a column vector
 
 def discount_rewards(r):
   """ take 1D float array of rewards and compute discounted reward """
@@ -72,10 +71,7 @@ def policy_backward(eph, epx, epdlogp):
   dW2 = np.dot(eph.T, epdlogp).ravel()
   dh = np.outer(epdlogp, model['W2'])
   dh[eph <= 0] = 0 # backpro prelu
-  #print(dh.T.shape)
-  #print(epx.shape)
   dW1 = np.dot(dh.T, epx)
-  #print(dW1.shape)
   return {'W1':dW1, 'W2':dW2}
 
 env = gym.make("Pong-v0")
@@ -136,15 +132,16 @@ while True:
 
     epdlogp *= discounted_epr # modulate the gradient with advantage (Policy Grad magic happens right here.)
     grad = policy_backward(eph, epx, epdlogp)
-    print(grad_buffer)
-    print(grad)
     for k in model: grad_buffer[k] += grad[k] # accumulate grad over batch
 
     # perform rmsprop parameter update every batch_size episodes
     if episode_number % batch_size == 0:
       for k,v in model.items():
         g = grad_buffer[k] # gradient
+        print(g.shape)
+        print('im so confused')
         rmsprop_cache[k] = decay_rate * rmsprop_cache[k] + (1 - decay_rate) * g**2
+        print((g**2).shape)
         model[k] += learning_rate * g / (np.sqrt(rmsprop_cache[k]) + 1e-5)
         grad_buffer[k] = np.zeros_like(v) # reset batch gradient buffer
 

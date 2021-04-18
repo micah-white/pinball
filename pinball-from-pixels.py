@@ -37,16 +37,6 @@ grad_buffer = { k : np.zeros_like(v) for k,v in model.items() } # update buffers
 rmsprop_cache = { k : np.zeros_like(v) for k,v in model.items() } # rmsprop memory
 
 def sigmoid(x):
-  #print(x)
-  #with np.errstate(over='raise'):
-  try:
-    #print(x)
-    np.exp(-x)
-  except OverflowError as err:
-    print(x)
-    #temp = 1.0 / (1.0 + np.exp(-x))
-    #print(temp)
-    #time.sleep(10)
   return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
 
 def prepro(I):
@@ -167,14 +157,14 @@ while True:
 
   if done: # an episode finished
     episode_number += 1
-    print(actionDistribution)
+    #print(actionDistribution)
     actionDistribution = [0,0,0,0,0,0]
     avgs = []
     for i in range(0,A):
       avgs.append(sum(xvalues[i]) / len(xvalues[i]))
-    print(avgs)
+    #print(avgs)
     xvalues = [[],[],[],[],[],[]]
-    time.sleep(40)
+    #time.sleep(40)
     # stack together all inputs, hidden states, action gradients, and rewards for this episode
     epx = np.vstack(xs)
     eph = np.vstack(hs)
@@ -193,8 +183,8 @@ while True:
     #print(epdlogp)
     #time.sleep(5)
     grad = policy_backward(eph, epx, epdlogp)
-    print(grad_buffer)
-    print(grad)
+    #print(grad_buffer)
+    #print(grad)
     for k in model: grad_buffer[k] += grad[k] # accumulate grad over batch
     
     # perform rmsprop parameter update every batch_size episodes
