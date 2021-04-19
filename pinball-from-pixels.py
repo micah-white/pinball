@@ -14,7 +14,7 @@ from gym import wrappers
 # hyperparameters to tune
 H = 200 # number of hidden layer neurons
 A = 6 # number of actions
-batch_size = 8 # used to perform a RMS prop param update every batch_size steps
+batch_size = 5 # used to perform a RMS prop param update every batch_size steps
 learning_rate = 1e-3 # learning rate used in RMS prop
 gamma = 0.99 # discount factor for reward
 decay_rate = 0.99 # decay factor for RMSProp leaky sum of grad^2
