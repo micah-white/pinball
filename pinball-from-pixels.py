@@ -14,7 +14,7 @@ from gym import wrappers
 # hyperparameters to tune
 H = 200 # number of hidden layer neurons
 A = 6 # number of actions
-batch_size = 10 # used to perform a RMS prop param update every batch_size steps
+batch_size = 8 # used to perform a RMS prop param update every batch_size steps
 learning_rate = 1e-3 # learning rate used in RMS prop
 gamma = 0.99 # discount factor for reward
 decay_rate = 0.99 # decay factor for RMSProp leaky sum of grad^2
@@ -118,9 +118,15 @@ while True:
   # then go down.  The randomness introduces 'exploration' of the Agent
   #action = 2 if np.random.uniform() < aprob else 3 # roll the dice! 2 is UP, 3 is DOWN, 0 is stay the same
   #2 is both paddles up, 3 is right paddle up, 4 is left paddle up, 5 is pull bumper back, 6 fire bumper, except maybe 1 is?
-  #action = random.choices(range(0,8), weights = aprob)
-  actionProbs = random.choices(range(0,A), aprob)
-  action = actionProbs[0]
+  maxProb = max(aprob)
+  maxIndex = aprob.index(maxProb)
+  action = maxIndex
+  rand = random.random()
+  r = [i for i in range(A) if i != maxIndex]
+  print(maxIndex)
+  print(r)
+  if rand > maxProb:
+    action = random.choices(r)[0]
   actionDistribution[action] += 1
   
   # record various intermediates (needed later for backprop).
@@ -129,12 +135,12 @@ while True:
   hs.append(h) # hidden state
   y = []
   for i in range(0,A):
-    y.append(1 if action == i else 0) # a "fake label" - this is the label that we're passing to the neural network
+    y.append(1 if (maxIndex == i and action == i) else 0) # a "fake label" - this is the label that we're passing to the neural network
   # to fake labels for supervised learning. It's fake because it is generated algorithmically, and not based
   # on a ground truth, as is typically the case for Supervised learning
 
   dlogps.append(y - aprob[action]) # grad that encourages the action that was taken to be taken (see http://cs231n.github.io/neural-networks-2/#losses if confused)
-  
+  #print(len(dlogps))
   # step the environment and get new measurements
   observation, reward, done, info = env.step(action)
   drs.append(reward) # record reward (has to be done after we call step() to get reward for previous action)
