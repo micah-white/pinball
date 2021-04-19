@@ -123,8 +123,6 @@ while True:
   action = maxIndex
   rand = random.random()
   r = [i for i in range(A) if i != maxIndex]
-  print(maxIndex)
-  print(r)
   if rand > maxProb:
     action = random.choices(r)[0]
   actionDistribution[action] += 1
