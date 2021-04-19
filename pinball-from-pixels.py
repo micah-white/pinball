@@ -44,7 +44,6 @@ def prepro(I):
   I = I[29:217] # crop - remove 29px from start & 33px from end of image in x, to reduce redundant parts of image (i.e. after ball passes paddle)
   I = I[::2,::2,:] # downsample by factor of 2.
   I = I[:, :, 0] #only need red value to differentiate between colors
-  #np.set_printoptions(threshold=sys.maxsize)
   return I.astype(float).ravel() # ravel flattens an array and collapses it into a column vector
 
 def discount_rewards(r):
@@ -65,9 +64,7 @@ def policy_forward(x):
   h[h<0] = 0 # ReLU introduces non-linearity
   p = []
   for i in range(0, A):
-    #print(i)
     temp = np.dot(model['W2'][i], h)
-    #print(temp)
     xvalues[i].append(temp)
     p.append(sigmoid(temp)) # This is a logits function and outputs a decimal.   (1 x H) . (H x 1) = 1 (scalar)
   return p, h # return relative probability distribution of actions and hidden state
@@ -78,28 +75,15 @@ def policy_backward(eph, epx, epdlogp):
   """ It takes an array of the hidden states that corresponds to all the images that were
   fed to the NN (for the entire episode, so a bunch of games) and their corresponding logp"""
   dW2, dh= [],np.empty([A,eph.shape[0], eph.shape[1]])
-  #time.sleep(100)
   for i in range(0,A):
     dW2.append(np.dot(eph.T, epdlogp[:, i]).ravel())
-    #dh.append(np.outer(epdlogp[:,i], model['W2']))
-    #print("dh[i]: ")
-    #print(dh[i].shape) #num actions x H
-    #print("eplogd[:,i]: ")
-    #print(epdlogp.shape) # num actions x A
     dh[i] = np.outer(epdlogp[:,i], model['W2'][i])
-  #print("we here again xx2") 
-  np.set_printoptions(threshold=10000)
   for i in range(0,A):
     dh[i, eph <= 0] = 0 # backpro prelu
-  #print("we here")
-  #print(dh.T.shape)
-  #print(epx.shape)
-  temp = []
-  for i in range(0,A):
-    temp.append(np.dot(dh[i].T, epx))
-  dW1 = temp[0]
+  #average dh . epx values for dW1
+  dW1 = np.dot(dh[0].T, epx)
   for i in range(1,A):
-    np.add(dW1, temp[i])
+    np.add(dW1, np.dot(dh[i].T, epx))
   np.divide(dW1, A)
   return {'W1':dW1, 'W2':dW2}
 
@@ -128,17 +112,15 @@ while True:
 
   # forward the policy network and sample an action from the returned probability
   aprob, h = policy_forward(x)
-  #print(aprob)
-  #time.sleep(0.1)
+
   # The following step is randomly choosing a number which is the basis of making an action decision
   # If the random number is less than the probability of UP output from our neural network given the image
   # then go down.  The randomness introduces 'exploration' of the Agent
   #action = 2 if np.random.uniform() < aprob else 3 # roll the dice! 2 is UP, 3 is DOWN, 0 is stay the same
   #2 is both paddles up, 3 is right paddle up, 4 is left paddle up, 5 is pull bumper back, 6 fire bumper, except maybe 1 is?
   #action = random.choices(range(0,8), weights = aprob)
-  temp = random.choices(range(0,A), aprob)
-  #print(temp)
-  action = temp[0]
+  actionProbs = random.choices(range(0,A), aprob)
+  action = actionProbs[0]
   actionDistribution[action] += 1
   
   # record various intermediates (needed later for backprop).
@@ -155,19 +137,10 @@ while True:
   
   # step the environment and get new measurements
   observation, reward, done, info = env.step(action)
-  #print(reward)
-  #reward -= reward_benchmark
-  #reward = reward / reward_ratio
-  #print(reward)
-  #time.sleep(1)
-  #reward_sum += reward
   drs.append(reward) # record reward (has to be done after we call step() to get reward for previous action)
 
   if done: # an episode finished
     episode_number += 1
-    #reward_sum -= reward_benchmark
-    #reward_ratio /= reward_ratio
-    #print(actionDistribution)
     sub = reward_benchmark/len(drs)
     drs[:] = [(e - sub)/reward_ratio for e in drs]
     reward_sum = sum(drs)
@@ -177,7 +150,6 @@ while True:
       avgs.append(sum(xvalues[i]) / len(xvalues[i]))
     #print(avgs)
     xvalues = [[],[],[],[],[],[]]
-    #time.sleep(40)
     # stack together all inputs, hidden states, action gradients, and rewards for this episode
     epx = np.vstack(xs)
     eph = np.vstack(hs)
@@ -192,13 +164,8 @@ while True:
     discounted_epr -= np.mean(discounted_epr)
     if (np.std(discounted_epr) != 0):
       discounted_epr /= np.std(discounted_epr)
-    #print(epdlogp)
     epdlogp *= discounted_epr # modulate the gradient with advantage (Policy Grad magic happens right here).
-    #print(epdlogp)
-    #time.sleep(5)
     grad = policy_backward(eph, epx, epdlogp)
-    #print(grad_buffer)
-    #print(grad)
     for k in model: grad_buffer[k] += grad[k] # accumulate grad over batch
     
     # perform rmsprop parameter update every batch_size episodes
