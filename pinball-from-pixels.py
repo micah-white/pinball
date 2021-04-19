@@ -112,6 +112,10 @@ running_reward = None
 reward_sum = 0
 episode_number = 0
 actionDistribution = [0,0,0,0,0,0]
+
+reward_benchmark = 100000
+reward_ratio = 10000
+
 while True:
   if render: env.render()
   
@@ -151,13 +155,22 @@ while True:
   
   # step the environment and get new measurements
   observation, reward, done, info = env.step(action)
-  reward /= 10000
-  reward_sum += reward
+  #print(reward)
+  #reward -= reward_benchmark
+  #reward = reward / reward_ratio
+  #print(reward)
+  #time.sleep(1)
+  #reward_sum += reward
   drs.append(reward) # record reward (has to be done after we call step() to get reward for previous action)
 
   if done: # an episode finished
     episode_number += 1
+    #reward_sum -= reward_benchmark
+    #reward_ratio /= reward_ratio
     #print(actionDistribution)
+    sub = reward_benchmark/len(drs)
+    drs[:] = [(e - sub)/reward_ratio for e in drs]
+    reward_sum = sum(drs)
     actionDistribution = [0,0,0,0,0,0]
     avgs = []
     for i in range(0,A):
@@ -177,7 +190,8 @@ while True:
     
     # standardize the rewards to be unit normal (helps control the gradient estimator variance)
     discounted_epr -= np.mean(discounted_epr)
-    discounted_epr /= np.std(discounted_epr)
+    if (np.std(discounted_epr) != 0):
+      discounted_epr /= np.std(discounted_epr)
     #print(epdlogp)
     epdlogp *= discounted_epr # modulate the gradient with advantage (Policy Grad magic happens right here).
     #print(epdlogp)
@@ -199,9 +213,7 @@ while True:
     running_reward = reward_sum if running_reward is None else running_reward * 0.99 + reward_sum * 0.01
     print ('resetting env. episode #' + str(episode_number) + ' reward total was %f. running mean: %f' % (reward_sum, running_reward))
     if episode_number % 100 == 0: pickle.dump(model, open('save-pinball.p', 'wb'))
+    if running_reward > -0.5: reward_benchmark *= 2
     reward_sum = 0
     observation = env.reset() # reset env
     prev_x = None
-
-if reward != 0: # Pong has either +1 or -1 reward exactly when game ends.
-    print ('ep %d: game finished, reward: %f' % (episode_number, reward)) + ('' if reward == -1 else ' !!!!!!!!')

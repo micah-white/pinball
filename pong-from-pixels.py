@@ -111,6 +111,7 @@ while True:
 
   # step the environment and get new measurements
   observation, reward, done, info = env.step(action)
+  print(reward)
   reward_sum += reward
   drs.append(reward) # record reward (has to be done after we call step() to get reward for previous action)
 
