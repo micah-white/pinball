@@ -30,7 +30,7 @@ if resume:
   model = pickle.load(open('save-pinball.p', 'rb'))
 else:
   model = {}
-  model['W1'] = np.random.randn(H,D) / np.sqrt(D) # "Xavier" initialization - Shape will be H x D
+  model['W1'] = np.random.randn(H, D) / np.sqrt(D) # "Xavier" initialization - Shape will be H x D
   model['W2'] = np.random.randn(A, H) / np.sqrt(H) # Shape will be A x H
 
 grad_buffer = { k : np.zeros_like(v) for k,v in model.items() } # update buffers that add up gradients over a batch
@@ -46,48 +46,6 @@ def prepro(I):
   I[I != 0] = 1 #greyscale
   return I.astype(float).ravel() # ravel flattens an array and collapses it into a column vector
 
-def discount_rewards(r):
-  """ take 1D float array of rewards and compute discounted reward """
-  """ this function discounts from the action closest to the end of the completed game backwards
-  so that the most recent action has a greater weight """
-  discounted_r = np.zeros_like(r)
-  running_add = 0
-  for t in reversed(range(0, r.size)): # xrange is no longer supported in Python 3, replace with range
-    if r[t] != 0: running_add = 0 # reset the sum, since this was a game boundary (pong specific!)
-    running_add = running_add * gamma + r[t]
-    discounted_r[t] = running_add
-  return discounted_r
-
-def policy_forward(x):
-  """This is a manual implementation of a forward prop"""
-  h = np.dot(model['W1'], x) # (H x D) . (D x 1) = (H x 1) (200 x 1)
-  h[h<0] = 0 # ReLU introduces non-linearity
-  p = []
-  for i in range(0, A):
-    temp = np.dot(model['W2'][i], h)
-    xvalues[i].append(temp)
-    p.append(sigmoid(temp)) # This is a logits function and outputs a decimal.   (1 x H) . (H x 1) = 1 (scalar)
-  return p, h # return relative probability distribution of actions and hidden state
-
-def policy_backward(eph, epx, epdlogp):
-  """ backward pass. (eph is array of intermediate hidden states) """
-  """ Manual implementation of a backward prop"""
-  """ It takes an array of the hidden states that corresponds to all the images that were
-  fed to the NN (for the entire episode, so a bunch of games) and their corresponding logp"""
-  dW2 = np.dot(eph.T, epdlogp).T
-  #dh= np.empty([A,eph.shape[0], eph.shape[1]])
-  #for i in range(0,A):
-    #dh[i] = np.outer(epdlogp[:,i], model['W2'][i])
-  #for i in range(0,A):
-    #dh[i, eph <= 0] = 0 # backpro prelu
-  #calc dh . epx values for dW1
-  #dW1 = np.dot(dh[0].T, epx)
-  #for i in range(1,A):
-    #np.add(dW1, np.dot(dh[i].T, epx))
-  dh = np.dot(epdlogp, model['W2'])
-  dh[eph <= 0] = 0 # backpro prelu
-  dW1 = np.dot(dh.T, epx)
-  return {'W1':dW1, 'W2':dW2}
 
 env = gym.make("VideoPinball-v0")
 #env = wrappers.Monitor(env, 'tmp/pong-base', force=True) # record the game as as an mp4 file
