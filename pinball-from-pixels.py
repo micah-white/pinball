@@ -31,7 +31,7 @@ if resume:
 else:
   model = {}
   model['W1'] = np.random.randn(H,D) / np.sqrt(D) # "Xavier" initialization - Shape will be H x D
-  model['W2'] = np.random.randn(A, H) / np.sqrt(H) # Shape will be H
+  model['W2'] = np.random.randn(A, H) / np.sqrt(H) # Shape will be A x H
 
 grad_buffer = { k : np.zeros_like(v) for k,v in model.items() } # update buffers that add up gradients over a batch
 rmsprop_cache = { k : np.zeros_like(v) for k,v in model.items() } # rmsprop memory
@@ -42,8 +42,8 @@ def sigmoid(x):
 def prepro(I):
   """ prepro 250x160x3 uint8 frame into 7,520 (94x80) 1D float vector """
   I = I[29:217] # crop - remove 29px from start & 33px from end of image in x, to reduce redundant parts of image (i.e. after ball passes paddle)
-  I = I[::2,::2,:] # downsample by factor of 2.
-  I = I[:, :, 0] #only need red value to differentiate between colors
+  I = I[::2,::2,0] # downsample by factor of 2, only 1 value
+  I[I != 0] = 1 #greyscale
   return I.astype(float).ravel() # ravel flattens an array and collapses it into a column vector
 
 def discount_rewards(r):
@@ -62,6 +62,8 @@ def policy_forward(x):
   """This is a manual implementation of a forward prop"""
   h = np.dot(model['W1'], x) # (H x D) . (D x 1) = (H x 1) (200 x 1)
   h[h<0] = 0 # ReLU introduces non-linearity
+  #print(h)
+  #time.sleep(20)
   p = []
   for i in range(0, A):
     temp = np.dot(model['W2'][i], h)
@@ -75,16 +77,24 @@ def policy_backward(eph, epx, epdlogp):
   """ It takes an array of the hidden states that corresponds to all the images that were
   fed to the NN (for the entire episode, so a bunch of games) and their corresponding logp"""
   dW2, dh= [],np.empty([A,eph.shape[0], eph.shape[1]])
+  #dW2 = []
   for i in range(0,A):
     dW2.append(np.dot(eph.T, epdlogp[:, i]).ravel())
     dh[i] = np.outer(epdlogp[:,i], model['W2'][i])
   for i in range(0,A):
     dh[i, eph <= 0] = 0 # backpro prelu
-  #average dh . epx values for dW1
+  #calc dh . epx values for dW1
   dW1 = np.dot(dh[0].T, epx)
   for i in range(1,A):
     np.add(dW1, np.dot(dh[i].T, epx))
-  np.divide(dW1, A)
+  #dh = np.outer(epdlogp, model['W2'])
+  #print(epdlogp.shape)
+  #print(model['W2'].shape)
+  #print(dh.shape)
+  ##print(eph.shape)
+  #print(epx.shape)
+  #dh[eph <= 0] = 0 # backpro prelu
+  #dW1 = np.dot(dh.T, epx)
   return {'W1':dW1, 'W2':dW2}
 
 env = gym.make("VideoPinball-v0")

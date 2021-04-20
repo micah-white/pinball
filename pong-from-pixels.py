@@ -5,6 +5,7 @@ https://gist.github.com/karpathy/a4166c7fe253700972fcbc77e4ea32c5 """
 import numpy as np
 import _pickle as pickle
 import gym
+import sys
 
 from gym import wrappers
 
@@ -59,6 +60,7 @@ def policy_forward(x):
   """This is a manual implementation of a forward prop"""
   h = np.dot(model['W1'], x) # (H x D) . (D x 1) = (H x 1) (200 x 1)
   h[h<0] = 0 # ReLU introduces non-linearity
+  print(h)
   logp = np.dot(model['W2'], h) # This is a logits function and outputs a decimal.   (1 x H) . (H x 1) = 1 (scalar)
   p = sigmoid(logp)  # squashes output to  between 0 & 1 range
   return p, h # return probability of taking action 2 (UP), and hidden state
@@ -139,10 +141,7 @@ while True:
     if episode_number % batch_size == 0:
       for k,v in model.items():
         g = grad_buffer[k] # gradient
-        print(g.shape)
-        print('im so confused')
         rmsprop_cache[k] = decay_rate * rmsprop_cache[k] + (1 - decay_rate) * g**2
-        print((g**2).shape)
         model[k] += learning_rate * g / (np.sqrt(rmsprop_cache[k]) + 1e-5)
         grad_buffer[k] = np.zeros_like(v) # reset batch gradient buffer
 
