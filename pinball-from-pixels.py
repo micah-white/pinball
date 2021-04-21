@@ -89,8 +89,9 @@ running_reward = None
 reward_sum = 0
 episode_number = 0
 
-reward_benchmark = 100000
+reward_benchmark = 50000
 reward_ratio = 10000
+last_100 = []
 
 while True:
   if render: env.render()
@@ -138,6 +139,10 @@ while True:
 
   if done: # an episode finished
     episode_number += 1
+    real_reward = sum(drs)
+    if episode_number > 100:
+      last_100.pop(0)
+    last_100.append(real_reward)
     sub = reward_benchmark/len(drs)
     drs[:] = [(e - sub)/reward_ratio for e in drs]
     reward_sum = sum(drs)
@@ -173,10 +178,13 @@ while True:
         grad_buffer[k] = np.zeros_like(v) # reset batch gradient buffer
 
     # boring book-keeping
-    running_reward = reward_sum if running_reward is None else running_reward * 0.99 + reward_sum * 0.01
+    running_reward = sum(last_100)/len(last_100)
     print ('resetting env. episode #' + str(episode_number) + ' reward total was %f. running mean: %f' % (reward_sum, running_reward))
+    record_file = open('record', "a")
+    record_file.write(str(reward_sum) + ' ' + str(real_reward) + ' ' + str(running_reward) + ' ' + str(reward_benchmark) + '\n')
+    record_file.close()
     if episode_number % 100 == 0: pickle.dump(model, open('save-pinball.p', 'wb'))
-    if running_reward > -0.5: reward_benchmark *= 2
+    if (running_reward > reward_benchmark * .95 and episode_number > 50): reward_benchmark *= 1.5
     reward_sum = 0
     observation = env.reset() # reset env
     prev_x = None
