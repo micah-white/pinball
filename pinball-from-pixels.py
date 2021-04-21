@@ -71,10 +71,11 @@ def policy_forward(x):
   for i in range(0, A):
     temp = np.dot(model['W2'][i], h)
     xvalues[i].append(temp)
-    if abs(temp) > 50:
-      print(temp)
-      print(i)
-      print(model['W2'][i])
+    #if abs(temp) > 50:
+      #print(temp)
+      #print(i)
+      #print(model['W2'][i])
+      #print(h)
       #print(xvalues)
     p.append(sigmoid(temp)) # This is a logits function and outputs a decimal.   (1 x H) . (H x 1) = 1 (scalar)
     #warnings.resetwarnings()
@@ -89,6 +90,9 @@ def policy_backward(eph, epx, epdlogp):
   dh = np.dot(epdlogp, model['W2'])
   dh[eph <= 0] = 0 # backpro prelu
   dW1 = np.dot(dh.T, epx)
+  np.set_printoptions(threshold=np.inf)
+  #print(dW1[5,:])
+  #time.sleep(5)
   return {'W1':dW1, 'W2':dW2}
 
 env = gym.make("VideoPinball-v0")
@@ -188,6 +192,8 @@ while True:
       for k,v in model.items():
         g = grad_buffer[k] # gradient
         rmsprop_cache[k] = decay_rate * rmsprop_cache[k] + (1 - decay_rate) * g**2
+        print((learning_rate * g / (np.sqrt(rmsprop_cache[k]) + 1e-5))[action_distribution.index(max(action_distribution)),:])
+        print((g**2).shape)
         model[k] += learning_rate * g / (np.sqrt(rmsprop_cache[k]) + 1e-5)
         grad_buffer[k] = np.zeros_like(v) # reset batch gradient buffer
 
