@@ -20,7 +20,7 @@ gamma = 0.99 # discount factor for reward
 decay_rate = 0.99 # decay factor for RMSProp leaky sum of grad^2
 
 # Config flags - video output and res
-resume = False # resume training from previous checkpoint (from save.p  file)?
+resume = True # resume training from previous checkpoint (from save.p  file)?
 render = True # render video output?
 
 # model initialization
