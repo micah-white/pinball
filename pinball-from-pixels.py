@@ -8,8 +8,12 @@ import gym
 import time
 import sys
 import random
+import warnings
 
 from gym import wrappers
+
+np.seterr(all='warn')
+warnings.simplefilter("always")
 
 # hyperparameters to tune
 H = 200 # number of hidden layer neurons
@@ -20,8 +24,9 @@ gamma = 0.99 # discount factor for reward
 decay_rate = 0.99 # decay factor for RMSProp leaky sum of grad^2
 
 # Config flags - video output and res
-resume = True # resume training from previous checkpoint (from save.p  file)?
+resume = False # resume training from previous checkpoint (from save.p  file)?
 render = True # render video output?
+record = False #record output?
 
 # model initialization
 xvalues = [[],[],[],[],[],[]]
@@ -66,7 +71,13 @@ def policy_forward(x):
   for i in range(0, A):
     temp = np.dot(model['W2'][i], h)
     xvalues[i].append(temp)
+    if abs(temp) > 50:
+      print(temp)
+      print(i)
+      print(model['W2'][i])
+      #print(xvalues)
     p.append(sigmoid(temp)) # This is a logits function and outputs a decimal.   (1 x H) . (H x 1) = 1 (scalar)
+    #warnings.resetwarnings()
   return p, h # return relative probability distribution of actions and hidden state
 
 def policy_backward(eph, epx, epdlogp):
@@ -183,10 +194,11 @@ while True:
     # boring book-keeping
     running_reward = sum(last_100)/len(last_100)
     print ('resetting env. episode #' + str(episode_number) + ' reward total was %f. running mean: %f' % (reward_sum, running_reward))
-    record_file = open('record', "a")
-    record_file.write(str(action_distribution) + '\n')
-    record_file.write(str(reward_sum) + ' ' + str(real_reward) + ' ' + str(running_reward) + ' ' + str(reward_benchmark) + '\n')
-    record_file.close()
+    if record:
+      record_file = open('record', "a")
+      record_file.write(str(action_distribution) + '\n')
+      record_file.write(str(reward_sum) + ' ' + str(real_reward) + ' ' + str(running_reward) + ' ' + str(reward_benchmark) + '\n')
+      record_file.close()
     action_distribution = [0,0,0,0,0,0]
     if episode_number % 100 == 0: pickle.dump(model, open('save-pinball.p', 'wb'))
     if (running_reward > reward_benchmark * .95 and episode_number > 50): reward_benchmark *= 1.5
