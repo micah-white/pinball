@@ -89,6 +89,8 @@ running_reward = None
 reward_sum = 0
 episode_number = 0
 
+action_distribution = [0,0,0,0,0,0]
+
 reward_benchmark = 50000
 reward_ratio = 10000
 last_100 = []
@@ -118,6 +120,8 @@ while True:
   r = [i for i in range(A) if i != maxIndex]
   if rand > maxProb:
     action = random.choices(r)[0]
+
+  action_distribution[action] += 1
   
   # record various intermediates (needed later for backprop).
   # This code would have otherwise been handled by a NN library
@@ -149,7 +153,6 @@ while True:
     avgs = []
     for i in range(0,A):
       avgs.append(sum(xvalues[i]) / len(xvalues[i]))
-    #print(avgs)
     xvalues = [[],[],[],[],[],[]]
     # stack together all inputs, hidden states, action gradients, and rewards for this episode
     epx = np.vstack(xs)
@@ -181,8 +184,10 @@ while True:
     running_reward = sum(last_100)/len(last_100)
     print ('resetting env. episode #' + str(episode_number) + ' reward total was %f. running mean: %f' % (reward_sum, running_reward))
     record_file = open('record', "a")
+    record_file.write(action_distribution)
     record_file.write(str(reward_sum) + ' ' + str(real_reward) + ' ' + str(running_reward) + ' ' + str(reward_benchmark) + '\n')
     record_file.close()
+    action_distribution = [0,0,0,0,0,0]
     if episode_number % 100 == 0: pickle.dump(model, open('save-pinball.p', 'wb'))
     if (running_reward > reward_benchmark * .95 and episode_number > 50): reward_benchmark *= 1.5
     reward_sum = 0
