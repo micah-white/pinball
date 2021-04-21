@@ -184,7 +184,7 @@ while True:
     running_reward = sum(last_100)/len(last_100)
     print ('resetting env. episode #' + str(episode_number) + ' reward total was %f. running mean: %f' % (reward_sum, running_reward))
     record_file = open('record', "a")
-    record_file.write(action_distribution)
+    record_file.write(str(action_distribution) + '\n')
     record_file.write(str(reward_sum) + ' ' + str(real_reward) + ' ' + str(running_reward) + ' ' + str(reward_benchmark) + '\n')
     record_file.close()
     action_distribution = [0,0,0,0,0,0]
