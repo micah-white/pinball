@@ -88,7 +88,6 @@ xs,hs,dlogps,drs = [],[],[],[]
 running_reward = None
 reward_sum = 0
 episode_number = 0
-actionDistribution = [0,0,0,0,0,0]
 
 reward_benchmark = 100000
 reward_ratio = 10000
@@ -118,7 +117,6 @@ while True:
   r = [i for i in range(A) if i != maxIndex]
   if rand > maxProb:
     action = random.choices(r)[0]
-  actionDistribution[action] += 1
   
   # record various intermediates (needed later for backprop).
   # This code would have otherwise been handled by a NN library
@@ -143,7 +141,6 @@ while True:
     sub = reward_benchmark/len(drs)
     drs[:] = [(e - sub)/reward_ratio for e in drs]
     reward_sum = sum(drs)
-    actionDistribution = [0,0,0,0,0,0]
     avgs = []
     for i in range(0,A):
       avgs.append(sum(xvalues[i]) / len(xvalues[i]))
