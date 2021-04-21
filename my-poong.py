@@ -13,8 +13,8 @@ from gym import wrappers
 
 # hyperparameters to tune
 H = 200 # number of hidden layer neurons
-A = 6 # number of actions
-batch_size = 5 # used to perform a RMS prop param update every batch_size steps
+A = 2 # number of actions
+batch_size = 10 # used to perform a RMS prop param update every batch_size steps
 learning_rate = 1e-3 # learning rate used in RMS prop
 gamma = 0.99 # discount factor for reward
 decay_rate = 0.99 # decay factor for RMSProp leaky sum of grad^2
@@ -25,7 +25,7 @@ render = True # render video output?
 
 # model initialization
 xvalues = [[],[],[],[],[],[]]
-D = 94*80 # input dimensionality: 94x80 grid
+D = 75*80 # input dimensionality: 94x80 grid
 if resume:
   model = pickle.load(open('save-pinball.p', 'rb'))
 else:
@@ -40,11 +40,13 @@ def sigmoid(x):
   return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
 
 def prepro(I):
-  """ prepro 250x160x3 uint8 frame into 7,520 (94x80) 1D float vector """
-  I = I[29:217] # crop - remove 29px from start & 33px from end of image in x, to reduce redundant parts of image (i.e. after ball passes paddle)
-  I = I[::2,::2,0] # downsample by factor of 2, only 1 value
-  I[I != 0] = 1 #greyscale
+  I = I[35:185] # crop - remove 35px from start & 25px from end of image in x, to reduce redundant parts of image (i.e. after ball passes paddle)
+  I = I[::2,::2,0] # downsample by factor of 2.
+  I[I == 144] = 0 # erase background (background type 1)
+  I[I == 109] = 0 # erase background (background type 2)
+  I[I != 0] = 1 # everything else (paddles, ball) just set to 1. this makes the image grayscale effectively
   return I.astype(float).ravel() # ravel flattens an array and collapses it into a column vector
+
 
 def discount_rewards(r):
   """ take 1D float array of rewards and compute discounted reward """
@@ -80,7 +82,7 @@ def policy_backward(eph, epx, epdlogp):
   dW1 = np.dot(dh.T, epx)
   return {'W1':dW1, 'W2':dW2}
 
-env = gym.make("VideoPinball-v0")
+env = gym.make("Pong-v0")
 #env = wrappers.Monitor(env, 'tmp/pong-base', force=True) # record the game as as an mp4 file
 observation = env.reset()
 prev_x = None # used in computing the difference frame
@@ -88,10 +90,9 @@ xs,hs,dlogps,drs = [],[],[],[]
 running_reward = None
 reward_sum = 0
 episode_number = 0
-actionDistribution = [0,0,0,0,0,0]
 
-reward_benchmark = 100000
-reward_ratio = 10000
+reward_benchmark = 0
+reward_ratio = 1
 
 while True:
   if render: env.render()
@@ -113,12 +114,11 @@ while True:
   #2 is both paddles up, 3 is right paddle up, 4 is left paddle up, 5 is pull bumper back, 6 fire bumper, except maybe 1 is?
   maxProb = max(aprob)
   maxIndex = aprob.index(maxProb)
-  action = maxIndex
+  action = maxIndex+2
   rand = random.random()
   r = [i for i in range(A) if i != maxIndex]
   if rand > maxProb:
-    action = random.choices(r)[0]
-  actionDistribution[action] += 1
+    action = random.choices(r)[0]+2
   
   # record various intermediates (needed later for backprop).
   # This code would have otherwise been handled by a NN library
@@ -126,12 +126,13 @@ while True:
   hs.append(h) # hidden state
   y = []
   for i in range(0,A):
-    y.append(1 if (maxIndex == i and action == i) else 0) # a "fake label" - this is the label that we're passing to the neural network
+    y.append(1 if (maxIndex == i and action == i+2) else 0) # a "fake label" - this is the label that we're passing to the neural network
   # to fake labels for supervised learning. It's fake because it is generated algorithmically, and not based
   # on a ground truth, as is typically the case for Supervised learning
   logs = []
-  for i in range(A):
-    logs.append(y[i]-aprob[i])
+  zip_object = zip(y, aprob)
+  for list1_i, list2_i in zip_object:
+    logs.append(list1_i-list2_i)
   dlogps.append(logs) # grad that encourages the action that was taken to be taken (see http://cs231n.github.io/neural-networks-2/#losses if confused)
   #print(len(dlogps))
   # step the environment and get new measurements
@@ -178,7 +179,7 @@ while True:
     # boring book-keeping
     running_reward = reward_sum if running_reward is None else running_reward * 0.99 + reward_sum * 0.01
     print ('resetting env. episode #' + str(episode_number) + ' reward total was %f. running mean: %f' % (reward_sum, running_reward))
-    if episode_number % 100 == 0: pickle.dump(model, open('save-pinball.p', 'wb'))
+    if episode_number % 100 == 0: pickle.dump(model, open('save-my-pong.p', 'wb'))
     if running_reward > -0.5: reward_benchmark *= 2
     reward_sum = 0
     observation = env.reset() # reset env

@@ -17,7 +17,7 @@ gamma = 0.99 # discount factor for reward
 decay_rate = 0.99 # decay factor for RMSProp leaky sum of grad^2
 
 # Config flags - video output and res
-resume = True # resume training from previous checkpoint (from save.p  file)?
+resume = False # resume training from previous checkpoint (from save.p  file)?
 render = True # render video output?
 
 # model initialization
@@ -60,7 +60,6 @@ def policy_forward(x):
   """This is a manual implementation of a forward prop"""
   h = np.dot(model['W1'], x) # (H x D) . (D x 1) = (H x 1) (200 x 1)
   h[h<0] = 0 # ReLU introduces non-linearity
-  print(h)
   logp = np.dot(model['W2'], h) # This is a logits function and outputs a decimal.   (1 x H) . (H x 1) = 1 (scalar)
   p = sigmoid(logp)  # squashes output to  between 0 & 1 range
   return p, h # return probability of taking action 2 (UP), and hidden state
@@ -113,7 +112,6 @@ while True:
 
   # step the environment and get new measurements
   observation, reward, done, info = env.step(action)
-  print(reward)
   reward_sum += reward
   drs.append(reward) # record reward (has to be done after we call step() to get reward for previous action)
 
@@ -148,7 +146,7 @@ while True:
     # boring book-keeping
     running_reward = reward_sum if running_reward is None else running_reward * 0.99 + reward_sum * 0.01
     print ('resetting env. episode #' + str(episode_number) + ' reward total was %f. running mean: %f' % (reward_sum, running_reward))
-    if episode_number % 100 == 0: pickle.dump(model, open('save.p', 'wb'))
+    if episode_number % 100 == 0: pickle.dump(model, open('sav.p', 'wb'))
     reward_sum = 0
     observation = env.reset() # reset env
     prev_x = None
