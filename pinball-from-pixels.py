@@ -26,10 +26,9 @@ decay_rate = 0.99 # decay factor for RMSProp leaky sum of grad^2
 # Config flags - video output and res
 resume = False # resume training from previous checkpoint (from save.p  file)?
 render = True # render video output?
-record = False #record output?
+record = True #record output?
 
 # model initialization
-xvalues = [[],[],[],[],[],[]]
 D = 94*80 # input dimensionality: 94x80 grid
 if resume:
   model = pickle.load(open('save-pinball.p', 'rb'))
@@ -41,6 +40,8 @@ else:
 grad_buffer = { k : np.zeros_like(v) for k,v in model.items() } # update buffers that add up gradients over a batch
 rmsprop_cache = { k : np.zeros_like(v) for k,v in model.items() } # rmsprop memory
 
+accepted_colors = [187, 104, 236, 210, 0]
+
 def sigmoid(x):
   return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
 
@@ -48,6 +49,8 @@ def prepro(I):
   """ prepro 250x160x3 uint8 frame into 7,520 (94x80) 1D float vector """
   I = I[29:217] # crop - remove 29px from start & 33px from end of image in x, to reduce redundant parts of image (i.e. after ball passes paddle)
   I = I[::2,::2,0] # downsample by factor of 2, only 1 value
+  if(I[0][0] != 0):
+    I -= I[0][0]
   I[I != 0] = 1 #greyscale
   return I.astype(float).ravel() # ravel flattens an array and collapses it into a column vector
 
@@ -67,18 +70,15 @@ def policy_forward(x):
   """This is a manual implementation of a forward prop"""
   h = np.dot(model['W1'], x) # (H x D) . (D x 1) = (H x 1) (200 x 1)
   h[h<0] = 0 # ReLU introduces non-linearity
+  max_h = max(abs(h))
   p = []
   for i in range(0, A):
     temp = np.dot(model['W2'][i], h)
-    xvalues[i].append(temp)
-    #if abs(temp) > 50:
-      #print(temp)
-      #print(i)
-      #print(model['W2'][i])
-      #print(h)
-      #print(xvalues)
-    p.append(sigmoid(temp)) # This is a logits function and outputs a decimal.   (1 x H) . (H x 1) = 1 (scalar)
-    #warnings.resetwarnings()
+    sig = sigmoid(temp)
+    p.append(sig) # This is a logits function and outputs a decimal.   (1 x H) . (H x 1) = 1 (scalar)
+  if max_h > 30:
+    print(max_h)
+    #time.sleep(0.5)
   return p, h # return relative probability distribution of actions and hidden state
 
 def policy_backward(eph, epx, epdlogp):
@@ -90,9 +90,6 @@ def policy_backward(eph, epx, epdlogp):
   dh = np.dot(epdlogp, model['W2'])
   dh[eph <= 0] = 0 # backpro prelu
   dW1 = np.dot(dh.T, epx)
-  np.set_printoptions(threshold=np.inf)
-  #print(dW1[5,:])
-  #time.sleep(5)
   return {'W1':dW1, 'W2':dW2}
 
 env = gym.make("VideoPinball-v0")
@@ -109,7 +106,7 @@ action_distribution = [0,0,0,0,0,0]
 reward_benchmark = 50000
 reward_ratio = 10000
 last_100 = []
-
+np.set_printoptions(threshold=np.inf)
 while True:
   if render: env.render()
   
@@ -117,17 +114,13 @@ while True:
   cur_x = prepro(observation)
   # we take the difference in the pixel input, since this is more likely to account for interesting information
   # e.g. motion
+  
   x = cur_x - prev_x if prev_x is not None else np.zeros(D)
   prev_x = cur_x
 
   # forward the policy network and sample an action from the returned probability
   aprob, h = policy_forward(x)
 
-  # The following step is randomly choosing a number which is the basis of making an action decision
-  # If the random number is less than the probability of UP output from our neural network given the image
-  # then go down.  The randomness introduces 'exploration' of the Agent
-  #action = 2 if np.random.uniform() < aprob else 3 # roll the dice! 2 is UP, 3 is DOWN, 0 is stay the same
-  #2 is both paddles up, 3 is right paddle up, 4 is left paddle up, 5 is pull bumper back, 6 fire bumper, except maybe 1 is?
   maxProb = max(aprob)
   maxIndex = aprob.index(maxProb)
   action = maxIndex
@@ -151,9 +144,10 @@ while True:
   for i in range(A):
     logs.append(y[i]-aprob[i])
   dlogps.append(logs) # grad that encourages the action that was taken to be taken (see http://cs231n.github.io/neural-networks-2/#losses if confused)
-  #print(len(dlogps))
+  
   # step the environment and get new measurements
   observation, reward, done, info = env.step(action)
+  
   drs.append(reward) # record reward (has to be done after we call step() to get reward for previous action)
 
   if done: # an episode finished
@@ -192,11 +186,41 @@ while True:
       for k,v in model.items():
         g = grad_buffer[k] # gradient
         rmsprop_cache[k] = decay_rate * rmsprop_cache[k] + (1 - decay_rate) * g**2
-        print((learning_rate * g / (np.sqrt(rmsprop_cache[k]) + 1e-5))[action_distribution.index(max(action_distribution)),:])
-        print((g**2).shape)
+        #print((learning_rate * g / (np.sqrt(rmsprop_cache[k]) + 1e-5))[action_distribution.index(min(action_distribution)),:])
+        #print((g**2).shape)
         model[k] += learning_rate * g / (np.sqrt(rmsprop_cache[k]) + 1e-5)
         grad_buffer[k] = np.zeros_like(v) # reset batch gradient buffer
+      w1_stats, w2_stats, w1_totals, w2_totals = [], [], [], []
+      #for i in (model['W1']).T:
+        #asdf = []
+        #asdf.append(sum(i)/len(i))
+        #asdf.append(max(i))
+        #asdf.append(min(i))
+        #asdf.append(np.std(i))
+        #w1_stats.append(asdf)
+        #print([round(n, 3) for n in asdf])
+      #w1_totals.append(sum(w1_stats[:,0])/len(w1_stats[:,0]))
+      #w1_totals.append(sum(w1_stats[:][0])/len(w1_stats[:][0]))
+      #w1_totals.append(max(w1_stats[:][1]))
+      #w1_totals.append(min(w1_stats[:][2]))
 
+      #for i in (model['W2']).T:
+        #asdf = []
+        #asdf.append(sum(i)/len(i))
+        #asdf.append(max(i))
+        #asdf.append(min(i))
+        #asdf.append(np.std(i))
+        #w2_stats.append(asdf)
+        #print([round(n, 3) for n in asdf])
+      #w1_totals.append(sum(w1_stats[:,0])/len(w1_stats[:,0]))
+      #w2_totals.append(sum(w2_stats[:][0])/len(w2_stats[:][0]))
+      #w2_totals.append(max(w2_stats[:][1]))
+      #w2_totals.append(min(w2_stats[:][2]))
+
+      #print(w1_totals)
+      #print(w2_totals)
+
+      #time.sleep(2)
     # boring book-keeping
     running_reward = sum(last_100)/len(last_100)
     print ('resetting env. episode #' + str(episode_number) + ' reward total was %f. running mean: %f' % (reward_sum, running_reward))

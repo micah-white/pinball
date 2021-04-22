@@ -73,6 +73,7 @@ def policy_backward(eph, epx, epdlogp):
   dh = np.outer(epdlogp, model['W2'])
   dh[eph <= 0] = 0 # backpro prelu
   dW1 = np.dot(dh.T, epx)
+  
   return {'W1':dW1, 'W2':dW2}
 
 env = gym.make("Pong-v0")

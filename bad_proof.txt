@@ -1,0 +1,521 @@
+resetting env. episode #1 reward total was -3.025800. running mean: 19742.000000
+resetting env. episode #2 reward total was -4.128900. running mean: 14226.500000
+resetting env. episode #3 reward total was -3.068300. running mean: 15923.333333
+resetting env. episode #4 reward total was -3.267600. running mean: 16273.500000
+resetting env. episode #5 reward total was -4.637700. running mean: 13743.400000
+51.85544954216867
+53.12676251832656
+52.08883478012264
+53.25072012031385
+51.86377852696751
+53.040222755785166
+51.62239801784601
+52.83989128221461
+51.64607844389162
+52.608130349648754
+52.18935406286036
+52.819892829623114
+52.21138174185559
+52.86078077296743
+51.89792340429669
+52.89427736465141
+51.75383097792805
+53.0304902771614
+resetting env. episode #6 reward total was -2.556600. running mean: 15525.166667
+51.80164654469168
+53.01070346463581
+51.75715390175678
+52.93463286943258
+51.456158786214424
+52.81897908813502
+51.34398640603501
+52.72470598067874
+resetting env. episode #7 reward total was -4.099300. running mean: 14594.000000
+51.33268408618096
+52.67209917234382
+51.80508281289609
+52.99701726199749
+51.77094646489869
+52.97597318472913
+51.846131570101605
+53.091612023105704
+51.72818395753869
+52.880075078204314
+51.79385587522974
+53.18798220543343
+resetting env. episode #8 reward total was 2.585400. running mean: 22251.500000
+51.97718659304401
+52.999148382991734
+51.68226175317659
+53.09598004878876
+51.60003655993731
+52.87784234193175
+resetting env. episode #9 reward total was -3.348300. running mean: 21614.333333
+52.00732917264185
+52.83609862723256
+52.32769922997764
+52.95147460596317
+52.303031102681665
+52.89270099193929
+52.07590633326603
+53.00049136135743
+51.703225669026644
+53.24942591114482
+51.90146628888409
+53.136536707869716
+resetting env. episode #10 reward total was -2.355000. running mean: 22097.900000
+98.66849785747426
+53.02519417153199
+resetting env. episode #11 reward total was -4.579500. running mean: 20471.272727
+98.24286471251281
+52.620597916032786
+99.22836966652095
+52.67575246673323
+99.3540145849883
+52.75461020391488
+resetting env. episode #12 reward total was -2.768900. running mean: 20624.583333
+99.29560031377032
+52.771273235889126
+98.94140890338895
+52.6123379221973
+98.986739918602
+52.89422198549133
+98.42782207331572
+52.74682524178999
+98.78966599771448
+52.73268197148775
+99.83985666348758
+52.996962980912855
+98.7015291855025
+52.82520927035006
+98.69811594939607
+53.14048475925219
+98.51617751175122
+52.80165485995022
+resetting env. episode #13 reward total was -1.456400. running mean: 21763.923077
+resetting env. episode #14 reward total was -3.788300. running mean: 21074.857143
+98.58035623350248
+52.846241886464114
+99.81671015919164
+52.69915934459304
+99.27296627572613
+52.88946631184824
+99.2748897076309
+53.03940675319703
+99.2607131754296
+52.854112111832
+resetting env. episode #15 reward total was -2.967700. running mean: 21024.733333
+134.4644639695776
+52.822750904404884
+134.17547007119236
+53.4562489568762
+133.9423718411437
+52.85149552182653
+resetting env. episode #16 reward total was -3.118000. running mean: 20886.937500
+133.8057127978449
+52.87414974626485
+134.01521045585855
+52.652366510206974
+133.7808921556251
+52.93184338150723
+133.2585128914791
+52.92292030260968
+134.32657796142558
+53.2487615345927
+134.04443235896358
+53.49978479255155
+resetting env. episode #17 reward total was -2.595700. running mean: 21072.588235
+134.1855239301977
+52.80992722967987
+134.32011146585558
+52.76235935878694
+134.0552654523157
+52.4567047641609
+resetting env. episode #18 reward total was -4.188500. running mean: 20352.722222
+134.14103387542633
+52.91955611632157
+134.1348115829748
+52.634178926612016
+134.14627671493892
+53.119399447442795
+134.15431361865382
+52.66781909462715
+134.30793347204772
+52.90915774587191
+134.008701365153
+53.081066333306076
+133.55551408519852
+52.613452794162
+133.88324506290832
+53.04187845111363
+resetting env. episode #19 reward total was -1.324800. running mean: 21215.842105
+133.65471127121583
+52.793687976812265
+134.5020372843488
+53.27958969648065
+134.08748926943306
+53.202016053518825
+133.60571029348114
+52.90319094811625
+134.32303850784115
+53.13253040381885
+134.61328995758623
+53.26113909075168
+133.970289502325
+53.262693657762604
+133.712678169694
+53.160700627641944
+133.8610760619497
+53.10691092959079
+resetting env. episode #20 reward total was -1.545600. running mean: 21882.250000
+177.14099882964132
+53.134211100618884
+176.5850214006062
+53.08744713097479
+resetting env. episode #21 reward total was -4.219100. running mean: 21212.095238
+177.30016351621288
+53.26839625272999
+176.00950594035714
+52.48037618782718
+resetting env. episode #22 reward total was -2.747700. running mean: 21271.681818
+177.06282507079686
+53.08484317724954
+176.52786791058645
+52.71445541080293
+176.54258849113086
+53.35803302199591
+177.2758614270231
+52.70958281551288
+176.82918102259435
+52.78226772042176
+resetting env. episode #23 reward total was -1.538400. running mean: 21851.869565
+176.80049228351322
+52.642200090835765
+176.41437100192758
+52.94399550358869
+resetting env. episode #24 reward total was -3.787400. running mean: 21446.625000
+176.09713886747895
+52.57691351914814
+175.6957754176519
+52.839022075345824
+177.38730721905222
+53.14582481211468
+177.432085526462
+53.08382470577023
+176.8095198340282
+53.12053292104606
+176.35048475763236
+53.27104824019402
+176.5533387927808
+53.19549816899459
+resetting env. episode #25 reward total was -2.764600. running mean: 21482.920000
+resetting env. episode #26 reward total was -4.387600. running mean: 20892.192308
+205.6157176500043
+53.15921502965804
+resetting env. episode #27 reward total was -4.338700. running mean: 20363.333333
+207.1767639479687
+53.203745774235
+206.369937223269
+53.038968762673896
+206.72725946643254
+53.23031065586712
+205.9915930012515
+53.21814507449217
+resetting env. episode #28 reward total was -3.848500. running mean: 20047.321429
+206.1787270304948
+53.19381582680929
+206.41416662330118
+52.78791409754362
+resetting env. episode #29 reward total was -3.757600. running mean: 19784.448276
+207.22948280084125
+52.72394784401815
+205.39185443049075
+52.94479510675944
+208.31838331176903
+53.13243184613001
+206.7366838481641
+52.98215913417327
+204.42737893788458
+52.86274879303811
+205.9485262472087
+53.059460422882175
+205.5127955283994
+52.850160466344065
+204.51384681099145
+52.57921280453253
+resetting env. episode #30 reward total was -2.024600. running mean: 20116.766667
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+231.2387782081379C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+
+52.55756125382562
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+229.2067676171057C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+
+52.845305403091444
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+228.27271066070398C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+
+52.92292299606805
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+229.69336508778397C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+
+52.9325495714075
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+230.3375144772804C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+
+53.20203678010979
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+230.16057760807786C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+
+53.566116431885575
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+230.0867775468136C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+
+53.62025784583494
+resetting env. episode #31 reward total was 0.285100. running mean: 21172.709677
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+230.40516827673767C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+
+53.39806487431531
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+230.86769556860895C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+
+53.27036131624699
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+230.06077246026265C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+
+53.20660176040376
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+229.30011264906128C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+
+52.6346895083735
+resetting env. episode #32 reward total was -2.405600. running mean: 21321.812500
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+230.89369296369566C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+
+53.02985839018051
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+231.42683705143048C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+
+53.35190084810476
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+229.08609978923147C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+
+52.82402255841466
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+229.35496186644508C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+
+53.024753028341635
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+229.6834842919389C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+
+53.56370284186828
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+230.637093326085C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+
+52.832174950591366
+resetting env. episode #33 reward total was -1.717300. running mean: 21670.454545
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+230.08527109118643C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+
+52.926263425255755
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+230.3972230151091C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+
+53.02168068402116
+resetting env. episode #34 reward total was -3.436900. running mean: 21492.823529
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+230.6732952513847C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+
+53.0862829889942
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+229.29187892639806C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+
+52.93683325053222
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+231.4302542553013C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+
+53.35358361996837
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+229.66286186246634C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+
+52.72061804600882
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+229.7314621269344C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+
+52.41374910808315
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+231.6158431185641C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+
+53.582700109708256
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+230.4205452250721C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+
+53.54869003457104
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+231.1187027324561C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+C:\Users\micah\Source\Repos\pinball\pinball-from-pixels.py:47: RuntimeWarning: underflow encountered in exp
+  return 1.0 / (1.0 + np.exp(-x)) # sigmoid "squashing" function to interval [0,1]
+
+53.07255138915491
+resetting env. episode #35 reward total was -0.845700. running mean: 22065.685714
