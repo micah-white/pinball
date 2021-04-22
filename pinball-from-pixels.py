@@ -159,10 +159,7 @@ while True:
     sub = reward_benchmark/len(drs)
     drs[:] = [(e - sub)/reward_ratio for e in drs]
     reward_sum = sum(drs)
-    avgs = []
-    for i in range(0,A):
-      avgs.append(sum(xvalues[i]) / len(xvalues[i]))
-    xvalues = [[],[],[],[],[],[]]
+
     # stack together all inputs, hidden states, action gradients, and rewards for this episode
     epx = np.vstack(xs)
     eph = np.vstack(hs)
