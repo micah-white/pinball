@@ -156,8 +156,10 @@ while True:
     if episode_number > 100:
       last_100.pop(0)
     last_100.append(real_reward)
-    sub = reward_benchmark/len(drs)
+    #sub = reward_benchmark/len(drs)
+    sub = 0
     drs[:] = [(e - sub)/reward_ratio for e in drs]
+    drs[len(drs)-1] = -1
     reward_sum = sum(drs)
 
     # stack together all inputs, hidden states, action gradients, and rewards for this episode
