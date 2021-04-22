@@ -227,7 +227,10 @@ while True:
       record_file.write(str(reward_sum) + ' ' + str(real_reward) + ' ' + str(running_reward) + ' ' + str(reward_benchmark) + '\n')
       record_file.close()
     action_distribution = [0,0,0,0,0,0]
-    if episode_number % 100 == 0: pickle.dump(model, open('save-pinball.p', 'wb'))
+    if episode_number % 100 == 0: 
+      f = open('save-pinball.p', 'wb')
+      pickle.dump(model, f)
+      f.close()
     if (running_reward > reward_benchmark * .95 and episode_number > 50): reward_benchmark *= 1.5
     reward_sum = 0
     observation = env.reset() # reset env
